@@ -1,8 +1,32 @@
 <head>
-	<title>BAMS</title>
+	<title>Gabriele Bettineschi's website</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="assets/css/styles.css" />
+	<link rel="icon" href="assets/img/bams-logo.png" type="image/jpeg" />
 </head>
 
 <body>
-	Ciao
+	<div class="main-div">
+		<img
+			src="assets/img/bams-logo.png"
+			alt="BAMS logo"
+			class="profile-picture"
+		/>
+		<h1>Bocconi Association for Mathematical Sciences</h1>
+		<h3 class="subtitle">BAMS</h3>
+		<p>
+			Ciao!
+		</p>
+		<h2>Contact</h2>
+		<p>
+			Email me at <a href="mailto:as.mathematicalsciences@unibocconi.it"
+				>as.mathematicalsciences@unibocconi.it</a>.
+		</p>
+	</div>
+
+	<script>
+		document.querySelectorAll('a').forEach((link) => {
+			link.setAttribute('target', '_blank');
+		});
+	</script>
 </body>
