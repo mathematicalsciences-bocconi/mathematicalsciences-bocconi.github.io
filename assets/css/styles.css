@@ -1,7 +1,13 @@
-/* Adobe Hebrew font-face */
 @font-face {
 	font-family: 'Adobe Hebrew';
 	src: url('../fonts/AdobeHebrewRegular.otf') format('opentype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Georgia';
+	src: url('../fonts/Georgia.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
 }
