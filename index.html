@@ -1,32 +1,264 @@
+<!doctype html>
+<html lang="it">
 <head>
-	<title>Gabriele Bettineschi's website</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="assets/css/styles.css" />
-	<link rel="icon" href="assets/img/bams-logo.png" type="image/jpeg" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BAMS – Bocconi Association for Mathematical Sciences</title>
+
+  <!-- Optional font; remove if you load your own -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+
+  <!-- Keep this style block LAST in <head> so it overrides any external CSS -->
+  <style>
+    :root{
+      /* Title controls */
+      --title-font: 'Adobe Hebrew', Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      --title-size: clamp(60px, 3.8vw, 70px);   /* keep your current size */
+      --title-weight: 700;
+      --title-tracking: .02em;
+      --title-transform: none;
+
+      /* Brand & surfaces */
+      --bg:#0a3d2d;                     /* page background */
+      --cream:#f9f2d8;                  /* base cream */
+      --cream-r:249; --cream-g:242; --cream-b:216;
+      --card-alpha:.3;                 /* ≈98% transparency for glass cards */
+      --radius:16px;
+
+      /* Text colors */
+      --title-ink: var(--cream);        /* fully opaque cream for titles/arrows */
+      --body-on-card:#0a3d2d;           /* text inside panels */
+    }
+
+    html { 
+      scroll-behavior:smooth;
+      height: 100%;
+    }
+    * { box-sizing:border-box; }
+    body{
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: rgba(255,255,255,.92);
+      line-height:1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container{
+      max-width: 700px;
+      margin: 0 auto;
+      padding: clamp(16px, 4vw, 28px);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Logo space (replace src with your real logo path) */
+    .masthead{
+      display:flex; justify-content:center; align-items:center;
+      padding: clamp(20px, 5vw, 36px) 0;
+    }
+    .masthead .logo{
+      height: clamp(600px, 10vw, 1100px); /* unchanged from your file */
+      width: auto; object-fit: contain; display:block;
+    }
+
+    .sections{
+      display: grid;
+      gap: clamp(12px, 3vw, 20px);
+      flex: 1;
+    }
+
+    /* GLASSY cream cards @ ~90% opacity */
+    .section{
+      position: relative;
+      border-radius: var(--radius);
+
+      /* Fallback then variable-driven BG */
+      background: #f9f2d8E6; /* ≈90% opacity (E6) */
+      background: rgba(var(--cream-r), var(--cream-g), var(--cream-b), var(--card-alpha));
+
+      color: var(--body-on-card);
+      border: 1px solid rgba(255,255,255,.32);
+      box-shadow:
+        0 8px 24px rgba(0,0,0,.18),
+        inset 0 1px 0 rgba(255,255,255,.45),
+        inset 0 -1px 0 rgba(0,0,0,.05);
+      overflow: hidden;
+
+      /* Glassiness */
+      -webkit-backdrop-filter: blur(10px) saturate(130%);
+      backdrop-filter: blur(10px) saturate(130%);
+      background-clip: padding-box;
+    }
+
+    /* Soft sheen / texture overlay */
+    .section::before{
+      content:"";
+      position:absolute; inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(135deg,
+          rgba(255,255,255,.15) 0%,
+          rgba(255,255,255,.12) 38%,
+          rgba(255,255,255,0) 62%),
+        radial-gradient(100% 60% at 10% -10%,
+          rgba(255,255,255,.45), rgba(255,255,255,0) 10%);
+    }
+
+    .toggle{
+      width:100%;
+      appearance:none;
+      border:0; background: transparent;
+      color: var(--title-ink);
+      text-align: center;
+      display:flex; justify-content:center; align-items:center;
+      padding: clamp(14px, 3.2vw, 20px) clamp(16px, 3.6vw, 24px);
+      cursor:pointer;
+    }
+
+    /* Title text: fully opaque cream + subtle shadow */
+    .toggle > span:first-child{
+      font-family: var(--title-font);
+      font-size: var(--title-size);
+      font-weight: var(--title-weight);
+      color: var(--title-ink);            /* 0% transparent cream */
+      letter-spacing: var(--title-tracking);
+      text-transform: var(--title-transform);
+      line-height: 1.1;
+      text-shadow:
+        0 1px 1px rgba(0,0,0,.25),
+        0 2px 6px rgba(0,0,0,.12);
+    }
+
+    .toggle:focus-visible{
+      outline: 3px solid rgba(10,61,45,.28);
+      outline-offset: 2px;
+      border-radius: calc(var(--radius) - 2px);
+    }
+
+
+
+    .panel{
+      padding: 0 clamp(16px, 2vw, 24px) 0;
+      min-height: 0px;
+      overflow: hidden;
+      opacity: 0.7;
+      transition: all .35s ease;
+    }
+
+    .section[aria-expanded="true"] .panel{ 
+      opacity: 1;
+      min-height: 500px;                   /* keep or adjust */
+      padding: clamp(16px, 3.6vw, 24px);   /* restores top/bottom padding when open */
+    }
+
+    .slot{ 
+      min-height: clamp(100px, 20vh, 200px); /* reduced height - adjust these values as needed */
+      height: 100%;
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .panel{ transition: none !important; }
+      .chev{ transition: none !important; }
+    }
+  </style>
 </head>
-
 <body>
-	<div class="main-div">
-		<img
-			src="assets/img/bams-logo.png"
-			alt="BAMS logo"
-			class="profile-picture"
-		/>
-		<h1>Bocconi Association for Mathematical Sciences</h1>
-		<h3 class="subtitle">BAMS</h3>
-		<p>
-			Ciao!
-		</p>
-		<h2>Contact</h2>
-		<p>
-			Email me at <a href="mailto:as.mathematicalsciences@unibocconi.it"
-				>as.mathematicalsciences@unibocconi.it</a>.
-		</p>
-	</div>
+  <div class="container">
+    <!-- Logo space -->
+    <header class="masthead" role="banner" aria-label="Logo">
+      <img src="assets/img/logo_squared_cream.png" alt="BAMS logo" class="logo" />
+    </header>
 
-	<script>
-		document.querySelectorAll('a').forEach((link) => {
-			link.setAttribute('target', '_blank');
-		});
-	</script>
+    <!-- Three minimal sections -->
+    <main class="sections" id="content">
+      <!-- ABOUT US -->
+      <section class="section" id="about" aria-expanded="false">
+        <button class="toggle" aria-controls="panel-about" aria-expanded="false">
+          <span>ABOUT US</span>
+        </button>
+        <div class="panel" id="panel-about" role="region" aria-labelledby="about">
+          <div class="slot"><!-- Your “About us” content goes here --></div>
+        </div>
+      </section>
+
+      <!-- APPLICATIONS -->
+      <section class="section" id="applications" aria-expanded="false">
+        <button class="toggle" aria-controls="panel-applications" aria-expanded="false">
+          <span>APPLICATIONS</span>
+        </button>
+        <div class="panel" id="panel-applications" role="region" aria-labelledby="applications">
+          <div class="slot"><!-- Add your Applications info here --></div>
+        </div>
+      </section>
+
+      <!-- CONTACTS -->
+      <section class="section" id="contacts" aria-expanded="false">
+        <button class="toggle" aria-controls="panel-contacts" aria-expanded="false">
+          <span>CONTACTS</span>
+        </button>
+        <div class="panel" id="panel-contacts" role="region" aria-labelledby="contacts">
+          <div class="slot"><!-- Add your Contacts here --></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Minimal accordion: toggle open/close; only one open at a time, or none.
+    const sections = Array.from(document.querySelectorAll('.section'));
+
+    function setHeight(section, open){
+      const panel = section.querySelector('.panel');
+      if(!panel) return;
+      panel.style.maxHeight = open ? panel.scrollHeight + 'px' : 0;
+    }
+
+    function openOnly(target){
+      sections.forEach(sec => {
+        const open = sec === target;
+        sec.setAttribute('aria-expanded', open ? 'true' : 'false');
+        const btn = sec.querySelector('.toggle');
+        if(btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        setHeight(sec, open);
+      });
+    }
+
+    function closeOne(section){
+      section.setAttribute('aria-expanded','false');
+      const btn = section.querySelector('.toggle');
+      if(btn) btn.setAttribute('aria-expanded','false');
+      setHeight(section, false);
+    }
+
+    function init(){
+      sections.forEach(sec => {
+        const btn = sec.querySelector('.toggle');
+        setHeight(sec, false); // start closed
+        btn?.addEventListener('click', () => {
+          const isOpen = sec.getAttribute('aria-expanded') === 'true';
+          if(isOpen){ closeOne(sec); } else { openOnly(sec); }
+        });
+      });
+
+      window.addEventListener('resize', () => {
+        sections.forEach(sec => {
+          if(sec.getAttribute('aria-expanded') === 'true'){ setHeight(sec, true); }
+        });
+      });
+    }
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
 </body>
+</html>
