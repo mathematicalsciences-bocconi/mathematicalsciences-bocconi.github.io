@@ -75,7 +75,7 @@
       padding: clamp(20px, 5vw, 36px) 0;
     }
     .masthead .logo{
-      height: clamp(100px, 100vw, 1100px); /* unchanged from your file */
+      height: clamp(100px, 90vw, 1100px); /* unchanged from your file */
       width: auto; object-fit: contain; display:block;
     }
     /* Stack logo over text */
@@ -89,10 +89,10 @@
 
     /* Title under the logo */
     .site-title{
-      margin: clamp(8px, 1.6vw, 12px) 0 0;
+      margin: clamp(8px, 0.5vw, 12px) 0 0;
       font-family: var(--title-font, Inter, system-ui, sans-serif);
       font-weight: 700;
-      font-size: clamp(22px, 3.8vw, 36px);
+      font-size: clamp(22px, 10vw, 36px);
       line-height: 1.15;
       text-align: center;
       color: var(--title-ink, #f9f2d8);    /* fully opaque cream */
@@ -157,6 +157,11 @@
       --section-text: #f9f2d8;
     }
 
+    #applications .panel{
+      --section-font: 'Georgia', ui-serif, serif;
+      --section-text: #f9f2d8;
+    }
+
     .toggle{
       width:100%;
       appearance:none;
@@ -198,11 +203,24 @@
       transition: all .35s ease;
     }
     
-
+    /* Default panel height when opened */
     .section[aria-expanded="true"] .panel{ 
       opacity: 1;
-      min-height: 690px;                   /* keep or adjust */
+      min-height: auto;                   /* default height */
       padding: clamp(16px, 3.6vw, 24px);  /* restores top/bottom padding when open */
+    }
+
+    /* Individual panel heights when opened */
+    #about[aria-expanded="true"] .panel {
+      min-height: 690px;  /* About Us section height */
+    }
+
+    #applications[aria-expanded="true"] .panel {
+      min-height: 150px;  /* Applications section height */
+    }
+
+    #contacts[aria-expanded="true"] .panel {
+      min-height: 200px;  /* Contacts section height */
     }
 
     .slot{ 
@@ -210,9 +228,34 @@
       height: 100%;
     }
 
+    /* Contact section styles */
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      padding: 2rem 0;
+    }
+
+    .contact-link {
+      display: block;
+      transition: transform 0.2s ease;
+    }
+
+    .contact-link:hover {
+      transform: scale(1.1);
+    }
+
+    .contact-icon {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+    }
+
     @media (prefers-reduced-motion: reduce){
       .panel{ transition: none !important; }
       .chev{ transition: none !important; }
+      .contact-link { transition: none !important; }
     }
 
     /* Apply font + color to the CONTENT area only (not the title row) */
@@ -274,7 +317,10 @@
           <span>APPLICATIONS</span>
         </button>
         <div class="panel" id="panel-applications" role="region" aria-labelledby="applications">
-          <div class="slot"><!-- Add your Applications info here --></div>
+          <div class="slot">Applications will open from __ to __.
+            <p>Apply at: "link goes here"</p>
+            <p>Stay tuned for more updates!</p>
+          </div>
         </div>
       </section>
 
@@ -284,7 +330,19 @@
           <span>CONTACTS</span>
         </button>
         <div class="panel" id="panel-contacts" role="region" aria-labelledby="contacts">
-          <div class="slot"><!-- Add your Contacts here --></div>
+          <div class="slot">
+            <div class="contact-links">
+              <a href="#" class="contact-link">
+                <img src="assets/img/instagram-icon.png" alt="Instagram" class="contact-icon">
+              </a>
+              <a href="#" class="contact-link">
+                <img src="assets/img/linkedin-icon.png" alt="LinkedIn" class="contact-icon">
+              </a>
+              <a href="mailto:your@email.com" class="contact-link">
+                <img src="assets/img/email-icon.png" alt="Email" class="contact-icon">
+              </a>
+            </div>
+          </div>
         </div>
       </section>
     </main>
