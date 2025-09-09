@@ -19,10 +19,16 @@
     :root{
       /* Title controls */
       --title-font: 'Adobe Hebrew', Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-      --title-size: clamp(60px, 3.8vw, 70px);   /* keep your current size */
+      --title-size: clamp(30px, 11vw, 70px);   /* keep your current size */
       --title-weight: 700;
       --title-tracking: .02em;
       --title-transform: none;
+
+      /* Section content theme */
+      --section-font: var('Georgia', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif);
+      --section-text: #f9f2d8;     /* change to any color you like */
+      --section-link: #0a3d2d;     /* (optional) link color inside sections */
+      --section-heading: #0a3d2d;  /* (optional) h3/h4 color inside sections */
 
       /* Brand & surfaces */
       --bg:#0a3d2d;                     /* page background */
@@ -55,7 +61,7 @@
     }
 
     .container{
-      max-width: 700px;
+      width: clamp(100px, 100vw, 700px);
       margin: 0 auto;
       padding: clamp(16px, 4vw, 28px);
       flex: 1;
@@ -69,8 +75,38 @@
       padding: clamp(20px, 5vw, 36px) 0;
     }
     .masthead .logo{
-      height: clamp(100px, 70vw, 1100px); /* unchanged from your file */
+      height: clamp(100px, 100vw, 1100px); /* unchanged from your file */
       width: auto; object-fit: contain; display:block;
+    }
+    /* Stack logo over text */
+    .masthead{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;              /* NEW: puts title under the logo */
+      padding: clamp(28px, 6vw, 56px) 0;   /* keep your current spacing */
+    }
+
+    /* Title under the logo */
+    .site-title{
+      margin: clamp(8px, 1.6vw, 12px) 0 0;
+      font-family: var(--title-font, Inter, system-ui, sans-serif);
+      font-weight: 700;
+      font-size: clamp(22px, 3.8vw, 36px);
+      line-height: 1.15;
+      text-align: center;
+      color: var(--title-ink, #f9f2d8);    /* fully opaque cream */
+      text-shadow: 0 1px 1px rgba(0,0,0,.25), 0 2px 6px rgba(0,0,0,.12);
+    }
+
+    /* (Optional) small subtitle */
+    .site-subtitle{
+      margin: 4px 0 0;
+      font-family: var(--body-font, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif);
+      font-weight: 500;
+      font-size: clamp(14px, 2.5vw, 18px);
+      text-align: center;
+      color: rgba(249,242,216,.9);
     }
 
     .sections{
@@ -116,6 +152,11 @@
           rgba(255,255,255,.45), rgba(255,255,255,0) 10%);
     }
 
+    #about .panel{
+      --section-font: 'Georgia', ui-serif, serif;
+      --section-text: #f9f2d8;
+    }
+
     .toggle{
       width:100%;
       appearance:none;
@@ -150,17 +191,18 @@
 
 
     .panel{
-      padding: 0 clamp(16px, 2vw, 24px) 0;
+      padding: 0 clamp(10px, 2vw, 24px) 0;
       min-height: 0px;
       overflow: hidden;
       opacity: 0.7;
       transition: all .35s ease;
     }
+    
 
     .section[aria-expanded="true"] .panel{ 
       opacity: 1;
-      min-height: 500px;                   /* keep or adjust */
-      padding: clamp(16px, 3.6vw, 24px);   /* restores top/bottom padding when open */
+      min-height: 690px;                   /* keep or adjust */
+      padding: clamp(16px, 3.6vw, 24px);  /* restores top/bottom padding when open */
     }
 
     .slot{ 
@@ -172,6 +214,24 @@
       .panel{ transition: none !important; }
       .chev{ transition: none !important; }
     }
+
+    /* Apply font + color to the CONTENT area only (not the title row) */
+    .section .panel{
+      font-family: var(--section-font);
+      color: var(--section-text);
+    }
+
+    /* Optional: tweak common elements inside the content */
+    .section .panel a{
+      color: var(--section-link);
+      text-decoration: underline;
+    }
+    .section .panel h3,
+    .section .panel h4{
+      color: var(--section-heading);
+      font-family: var(--section-font);
+      margin: 0.6em 0 0.3em;
+    }
   </style>
 </head>
 <body>
@@ -179,6 +239,7 @@
     <!-- Logo space -->
     <header class="masthead" role="banner" aria-label="Logo">
       <img src="assets/img/logo_squared_cream.png" alt="BAMS logo" class="logo" />
+      <h1 class="site-title">Bocconi Association for Mathematical Sciences</h1>
     </header>
 
     <!-- Three minimal sections -->
@@ -189,7 +250,21 @@
           <span>ABOUT US</span>
         </button>
         <div class="panel" id="panel-about" role="region" aria-labelledby="about">
-          <div class="slot"><!-- Your “About us” content goes here --></div>
+          <div class="slot"><p>We are Bocconi's first Math association, dedicated to fostering a vibrant community for students passionate about mathematics and more. Join us to engage deeply and learn together with peers, discovering and understanding new aspects of the subject. </p>
+            <p>
+            Our association is based on networking, collaborations and research opportunities. We are developing a deep connection with the department of Decision Sciences, in order to create a bridge between students and professors. Regarding research, our long term project is to have 4 divisions:
+              <ul>
+                <li>Mathematics division</li>
+                <li>Statistics division</li>
+                <li>Applied Maths division (decision theory, game theory, mathematical economics)</li>
+                <li>Physics division</li>
+              </ul>
+            Each with its own board and activities. 
+            </p>  
+            <p> Last but not least, we organize sessions to prepare for math competitions such as the ICMC, to represent Bocconi among other top universities.</p>
+
+
+          </div>
         </div>
       </section>
 
