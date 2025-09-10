@@ -13,21 +13,13 @@
   <link rel="canonical" href="https://mathematicalsciences-bocconi.github.io/">
   <title>BAMS – Bocconi Association for Mathematical Sciences</title>
 
-  <!-- Optional font; remove if you load your own -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  
-  <!-- Custom styles -->
-  <link rel="stylesheet" href="assets/css/styles.css">
-
 
   <!-- Keep this style block LAST in <head> so it overrides any external CSS -->
   <style>
     :root{
       /* Title controls */
       --title-font: 'Adobe Hebrew', Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-      --title-size: clamp(30px, 11vw, 70px);   /* keep your current size */
+      --title-size: clamp(5px, 6vw, 30px);   /* keep your current size */
       --title-weight: 700;
       --title-tracking: .02em;
       --title-transform: none;
@@ -42,7 +34,7 @@
       --bg:#0a3d2d;                     /* page background */
       --cream:#f9f2d8;                  /* base cream */
       --cream-r:249; --cream-g:242; --cream-b:216;
-      --card-alpha:.3;                 /* ≈98% transparency for glass cards */
+      --card-alpha:.3;               
       --radius:16px;
 
       /* Text colors */
@@ -56,7 +48,6 @@
     }
     * { box-sizing:border-box; }
     body{
-      margin: 0;
       min-height: 100vh;
       font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
       background: var(--bg);
@@ -68,62 +59,42 @@
       flex-direction: column;
     }
 
-    .container{
-      width: clamp(100px, 100vw, 700px);
-      margin: 0 auto;
-      padding: clamp(16px, 4vw, 28px);
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Logo space (replace src with your real logo path) */
-    .masthead{
-      display:flex; justify-content:center; align-items:center;
-      padding: clamp(20px, 5vw, 36px) 0;
-    }
     .masthead .logo{
-      height: clamp(100px, 90vw, 750px); /* unchanged from your file */
+      height: clamp(100px, 40vw, 300px); /* unchanged from your file */
       width: auto; object-fit: contain; display:block;
     }
     /* Stack logo over text */
     .masthead{
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      flex-direction: column;              /* NEW: puts title under the logo */
-      padding: clamp(28px, 6vw, 56px) 0;   /* keep your current spacing */
+      flex-direction: column;
+      padding: clamp(28px, 2vw, 40px) 0;  /* reduced top/bottom padding */
+      margin-bottom: -50px;  /* space between title and sections */
     }
 
     /* Title under the logo */
     .site-title{
-      margin: clamp(8px, 0.5vw, 12px) 0 0;
       font-family: var(--title-font, Inter, system-ui, sans-serif);
       font-weight: 700;
-      font-size: clamp(22px, 10vw, 36px);
+      font-size: clamp(2px, 5vw, 30px);
+      width: clamp(200px, 80%, 550px);
       line-height: 1.15;
       text-align: center;
-      color: var(--title-ink, #f9f2d8);    /* fully opaque cream */
+      color: var(--title-ink, #f9f2d8);
       text-shadow: 0 1px 1px rgba(0,0,0,.25), 0 2px 6px rgba(0,0,0,.12);
-    }
-
-    /* (Optional) small subtitle */
-    .site-subtitle{
-      margin: 4px 0 0;
-      font-family: var(--body-font, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif);
-      font-weight: 500;
-      font-size: clamp(14px, 2.5vw, 18px);
-      text-align: center;
-      color: rgba(249,242,216,.9);
     }
 
     .sections{
       display: grid;
-      gap: clamp(12px, 3vw, 20px);
+      padding-top: clamp(10px, 13vw, 60px);
+      gap: clamp(2px, 5vw, 30px);  /* increased space between sections */
       flex: 1;
+      margin: 2rem auto;  /* added margin top and bottom */
+      width: clamp(300px, 80%, 500px);  /* make sections slightly narrower than container */
     }
 
-    /* GLASSY cream cards @ ~90% opacity */
+    /* GLASSY cream cards */
     .section{
       position: relative;
       border-radius: var(--radius);
@@ -171,14 +142,17 @@
     }
 
     .toggle{
-      width:100%;
-      appearance:none;
-      border:0; background: transparent;
+      width: 100%;
+      appearance: none;
+      border: 0;
+      background: transparent;
       color: var(--title-ink);
       text-align: center;
-      display:flex; justify-content:center; align-items:center;
-      padding: clamp(14px, 3.2vw, 20px) clamp(16px, 3.6vw, 24px);
-      cursor:pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+      cursor: pointer;
     }
 
     /* Title text: fully opaque cream + subtle shadow */
@@ -201,39 +175,19 @@
       border-radius: calc(var(--radius) - 2px);
     }
 
-
-
     .panel{
-      padding: 0 clamp(10px, 2vw, 24px) 0;
-      min-height: 0px;
+      padding: 0 1.5rem;
       overflow: hidden;
-      opacity: 0.7;
-      transition: all .35s ease;
+      opacity: 0;
+      max-height: 0;
+      transition: all .35s ease-in-out;
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
     
     /* Default panel height when opened */
     .section[aria-expanded="true"] .panel{ 
       opacity: 1;
-      min-height: auto;                   /* default height */
-      padding: clamp(16px, 3.6vw, 24px);  /* restores top/bottom padding when open */
-    }
-
-    /* Individual panel heights when opened */
-    #about[aria-expanded="true"] .panel {
-      min-height: 690px;  /* About Us section height */
-    }
-
-    #applications[aria-expanded="true"] .panel {
-      min-height: 150px;  /* Applications section height */
-    }
-
-    #contacts[aria-expanded="true"] .panel {
-      min-height: 200px;  /* Contacts section height */
-    }
-
-    .slot{ 
-      min-height: clamp(100px, 20vh, 200px); /* reduced height - adjust these values as needed */
-      height: 100%;
+      padding: 1.5rem;
     }
 
     /* Contact section styles */
@@ -272,16 +226,8 @@
       color: var(--section-text);
     }
 
-    /* Optional: tweak common elements inside the content */
-    .section .panel a{
-      color: var(--section-link);
-      text-decoration: underline;
-    }
-    .section .panel h3,
-    .section .panel h4{
-      color: var(--section-heading);
-      font-family: var(--section-font);
-      margin: 0.6em 0 0.3em;
+    .slot { 
+      padding-bottom: 30px;
     }
   </style>
 </head>
@@ -290,7 +236,7 @@
     <!-- Logo space -->
     <header class="masthead" role="banner" aria-label="Logo">
       <img src="assets/img/logo_squared_cream.png" alt="BAMS logo" class="logo" />
-      <h1 class="site-title">Bocconi Association for Mathematical Sciences</h1>
+      <h1 class="site-title">Bocconi Student Association for Mathematical Sciences</h1>
     </header>
 
     <!-- Three minimal sections -->
@@ -325,7 +271,7 @@
           <span>APPLICATIONS</span>
         </button>
         <div class="panel" id="panel-applications" role="region" aria-labelledby="applications">
-          <div class="slot">Applications will open from __ to __.
+          <div class="slot">Applications will open from <b>Friday 13-09-2025 to Friday 27-09-2025.</b>
             <p>Apply at: "link goes here"</p>
             <p>Stay tuned for more updates!</p>
           </div>
@@ -343,10 +289,10 @@
               <a href="https://www.instagram.com/bams.bocconi/" class="contact-link">
                 <img src="assets/img/instagram-icon.png" alt="Instagram" class="contact-icon">
               </a>
-              <a href="https://www.linkedin.com" class="contact-link">
+              <a href="https://www.linkedin.com/company/bocconi-mathematical-sciences/" class="contact-link">
                 <img src="assets/img/linkedin-icon.png" alt="LinkedIn" class="contact-icon">
               </a>
-              <a href="https://www.gmail.com" class="contact-link">
+              <a href="mailto:as.mathematicalsciences@unibocconi.it" class="contact-link">
                 <img src="assets/img/email-icon.png" alt="Email" class="contact-icon">
               </a>
             </div>
@@ -354,11 +300,6 @@
         </div>
       </section>
     </main>
-    <footer style="text-align: center; padding: 20px; font-size: 0.8em; opacity: 0.8;">
-      <a href="privacy.html" style="color: var(--cream); text-decoration: none;">Privacy Policy</a>
-      <span style="color: var(--cream)"> | </span>
-      <span style="color: var(--cream)">© 2025 Bocconi Association for Mathematical Sciences</span>
-    </footer>
   </div>
 
   <script>
